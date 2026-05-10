@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing — Ned Mills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #faf9f5;
+      color: #1a1a1a;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #e5e2d6;
+      padding-bottom: 24px;
+      margin-bottom: 48px;
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 400;
+      font-size: 32px;
+      letter-spacing: -0.01em;
+    }
+    .home-link {
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .home-link:hover { color: #1a1a1a; }
+    .post {
+      display: block;
+      padding: 32px 0;
+      border-bottom: 1px solid #e5e2d6;
+      text-decoration: none;
+      color: inherit;
+    }
+    .post:hover h2 { color: #555; }
+    .post .cover {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .post h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 500;
+      font-size: 24px;
+      letter-spacing: -0.005em;
+      margin-bottom: 8px;
+      transition: color 0.15s;
+    }
+    .post .date {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+    .post .excerpt {
+      font-size: 16px;
+      color: #333;
+    }
+    .empty {
+      text-align: center;
+      padding: 64px 0;
+      color: #888;
+      font-style: italic;
+    }
+    .err {
+      background: #fff;
+      border: 1px solid #e5e2d6;
+      border-radius: 6px;
+      padding: 16px;
+      color: #a14040;
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <h1>Writing</h1>
+      <a class="home-link" href="/">← Home</a>
+    </div>
+    <div id="list"><div class="empty">Loading…</div></div>
+  </div>
+
+  <script>
+    (async function () {
+      const list = document.getElementById('list');
+      try {
+        const res = await fetch('/content/blog/posts.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('Failed to load posts (' + res.status + ')');
+        const data = await res.json();
+        const items = (data.items || []).slice().sort(function (a, b) {
+          return new Date(b.date) - new Date(a.date);
+        });
+        if (items.length === 0) {
+          list.innerHTML = '<div class="empty">Nothing here yet — check back soon.</div>';
+          return;
+        }
+        list.innerHTML = '';
+        for (const p of items) {
+          const a = document.createElement('a');
+          a.className = 'post';
+          a.href = '/post/' + encodeURIComponent(p.slug);
+          const dateStr = p.date ? new Date(p.date).toLocaleDateString(undefined, {
+            year: 'numeric', month: 'long', day: 'numeric'
+          }) : '';
+          let html = '';
+          if (p.cover) {
+            const img = document.createElement('img');
+            img.className = 'cover';
+            img.src = p.cover;
+            img.alt = '';
+            img.loading = 'lazy';
+            a.appendChild(img);
+          }
+          const h = document.createElement('h2');
+          h.textContent = p.title || '(untitled)';
+          a.appendChild(h);
+          if (dateStr) {
+            const d = document.createElement('div');
+            d.className = 'date';
+            d.textContent = dateStr;
+            a.appendChild(d);
+          }
+          if (p.excerpt) {
+            const e = document.createElement('div');
+            e.className = 'excerpt';
+            e.textContent = p.excerpt;
+            a.appendChild(e);
+          }
+          list.appendChild(a);
+        }
+      } catch (err) {
+        list.innerHTML = '<div class="err">Could not load posts: ' + (err.message || err) + '</div>';
+      }
+    })();
+  </script>
+</body>
+</html>

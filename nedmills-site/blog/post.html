@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading… — Ned Mills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #faf9f5;
+      color: #1a1a1a;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 48px;
+    }
+    .top a {
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .top a:hover { color: #1a1a1a; }
+    .cover {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 32px;
+      display: block;
+    }
+    h1.title {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 500;
+      font-size: 40px;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .date {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    .body {
+      font-size: 17px;
+    }
+    .body p { margin: 0 0 1em; }
+    .body h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 500;
+      font-size: 26px;
+      margin: 1.6em 0 0.6em;
+      letter-spacing: -0.005em;
+    }
+    .body h3 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 500;
+      font-size: 21px;
+      margin: 1.4em 0 0.5em;
+    }
+    .body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin: 24px 0;
+      display: block;
+    }
+    .body blockquote {
+      border-left: 3px solid #d4cfb8;
+      padding: 4px 0 4px 18px;
+      margin: 1.4em 0;
+      color: #555;
+      font-style: italic;
+    }
+    .body a { color: #1a1a1a; text-decoration: underline; text-decoration-color: #c4bf9a; text-underline-offset: 2px; }
+    .body a:hover { text-decoration-color: #1a1a1a; }
+    .body ul, .body ol { padding-left: 1.4em; margin: 0 0 1em; }
+    .body li { margin-bottom: 0.4em; }
+    .body code {
+      background: #efece0;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.92em;
+      font-family: ui-monospace, monospace;
+    }
+    .body pre {
+      background: #efece0;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 1.2em 0;
+    }
+    .body pre code { background: transparent; padding: 0; }
+    .gallery {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 4px;
+      cursor: zoom-in;
+    }
+    .lightbox {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+    }
+    .lightbox.show { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .err, .loading {
+      padding: 48px 0;
+      text-align: center;
+      color: #888;
+      font-style: italic;
+    }
+    .err { color: #a14040; font-style: normal; font-family: ui-monospace, monospace; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a href="/blog/">← All writing</a>
+      <a href="/">Home</a>
+    </div>
+    <div id="root"><div class="loading">Loading…</div></div>
+  </div>
+  <div class="lightbox" id="lightbox"><img id="lightbox-img" alt=""></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <script>
+    (async function () {
+      const root = document.getElementById('root');
+      const slug = decodeURIComponent(
+        (location.pathname.match(/^\/post\/([^/]+)/) || [])[1] ||
+        new URLSearchParams(location.search).get('slug') || ''
+      );
+      if (!slug) {
+        root.innerHTML = '<div class="err">No post specified.</div>';
+        return;
+      }
+      try {
+        const res = await fetch('/content/blog/posts.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('Failed to load posts (' + res.status + ')');
+        const data = await res.json();
+        const post = (data.items || []).find(function (p) { return p.slug === slug; });
+        if (!post) {
+          root.innerHTML = '<div class="err">Post not found.</div>';
+          return;
+        }
+        document.title = (post.title || 'Untitled') + ' — Ned Mills';
+
+        const dateStr = post.date ? new Date(post.date).toLocaleDateString(undefined, {
+          year: 'numeric', month: 'long', day: 'numeric'
+        }) : '';
+        const bodyHtml = post.body
+          ? DOMPurify.sanitize(marked.parse(post.body, { breaks: true }))
+          : '';
+
+        const parts = [];
+        if (post.cover) {
+          parts.push('<img class="cover" src="' + escAttr(post.cover) + '" alt="">');
+        }
+        parts.push('<h1 class="title">' + escHtml(post.title || 'Untitled') + '</h1>');
+        if (dateStr) parts.push('<div class="date">' + escHtml(dateStr) + '</div>');
+        parts.push('<div class="body">' + bodyHtml + '</div>');
+        if (Array.isArray(post.gallery) && post.gallery.length) {
+          let gal = '<div class="gallery">';
+          for (const g of post.gallery) {
+            const src = typeof g === 'string' ? g : (g && g.image) || '';
+            if (src) gal += '<img src="' + escAttr(src) + '" alt="" loading="lazy">';
+          }
+          gal += '</div>';
+          parts.push(gal);
+        }
+        root.innerHTML = parts.join('');
+
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        root.querySelectorAll('.gallery img').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lbImg.src = img.src;
+            lb.classList.add('show');
+          });
+        });
+        lb.addEventListener('click', function () { lb.classList.remove('show'); });
+      } catch (err) {
+        root.innerHTML = '<div class="err">Could not load post: ' + (err.message || err) + '</div>';
+      }
+
+      function escHtml(s) { return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      }); }
+      function escAttr(s) { return escHtml(s); }
+    })();
+  </script>
+</body>
+</html>

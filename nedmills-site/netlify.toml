@@ -1,0 +1,7 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/post/*"
+  to = "/blog/post.html?slug=:splat"
+  status = 200

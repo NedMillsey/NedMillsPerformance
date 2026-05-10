@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://wondrous-cannoli-f27d75.netlify.app
+display_url: https://wondrous-cannoli-f27d75.netlify.app
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    files:
+      - file: "content/blog/posts.json"
+        label: "All Posts"
+        name: "posts"
+        format: "json"
+        fields:
+          - label: "Posts (newest first)"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.date}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Slug (URL part)", name: "slug", widget: "string", hint: "lowercase, hyphens only — e.g. fight-night-recap" }
+              - { label: "Date", name: "date", widget: "datetime" }
+              - { label: "Cover photo", name: "cover", widget: "image", required: false }
+              - { label: "Short preview (shown on blog list)", name: "excerpt", widget: "text", required: false }
+              - { label: "Body", name: "body", widget: "markdown" }
+              - label: "Photo gallery (optional)"
+                name: "gallery"
+                widget: "list"
+                required: false
+                field: { label: "Photo", name: "image", widget: "image" }
