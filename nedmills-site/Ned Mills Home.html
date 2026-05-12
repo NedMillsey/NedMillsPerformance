@@ -1,0 +1,1452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ned Mills · Human Performance Clinician</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=Manrope:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #0E1014;
+    --bg-warm: #14130F;
+    --bg-deep: #08090C;
+    --surface: #181B22;
+    --surface-2: #1E222B;
+    --hair: rgba(214, 188, 144, 0.18);
+    --hair-soft: rgba(214, 188, 144, 0.10);
+    --hair-strong: rgba(214, 188, 144, 0.38);
+    --text: #F3EFE6;
+    --text-dim: #A9A498;
+    --text-faint: #6B6759;
+    --accent: #D6BC90;
+    --accent-deep: #B89867;
+    --accent-warm: #C9986A;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--bg); color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* — type — */
+  .mono{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:0.22em; text-transform:uppercase;
+    font-size:11px; color:var(--text-dim); font-weight:500;
+  }
+  .mono.accent{ color:var(--accent); }
+  .mono.dim{ color:var(--text-faint); }
+  .display{
+    font-family:'Archivo Narrow',sans-serif; font-weight:700;
+    letter-spacing:-0.012em; line-height:0.92;
+    text-transform:uppercase;
+  }
+  h1, h2, h3{ margin:0; text-wrap:balance; }
+  p{ margin:0; }
+
+  .wrap{ max-width:1440px; margin:0 auto; padding: 0 64px; position:relative; }
+
+  /* ───────────── NAV ───────────── */
+  .nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(8,9,12,0.72);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--hair-soft);
+  }
+  .nav-inner{
+    max-width: 1440px; margin: 0 auto;
+    padding: 18px 64px;
+    display:flex; align-items:center; justify-content:space-between; gap: 32px;
+  }
+  .mark{
+    font-family:'Archivo Narrow',sans-serif; font-weight:700;
+    font-size:18px; letter-spacing:0.32em; color: var(--text);
+  }
+  .mark .dot{ color:var(--accent); }
+  .nav-links{
+    display:flex; gap: 36px;
+    font-family:'JetBrains Mono',monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform:uppercase;
+    color: var(--text-dim);
+  }
+  .nav-links a{ position:relative; padding: 4px 0; transition: color .2s; }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:10px;
+    border: 1px solid var(--hair-strong);
+    color: var(--accent);
+    padding: 10px 16px;
+    font-family:'JetBrains Mono',monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform:uppercase;
+    transition: all .2s;
+  }
+  .nav-cta:hover{ background: var(--accent); color: var(--bg); }
+  .nav-cta .arr{ font-size: 14px; transform: translateY(-1px); }
+
+  /* ───────────── HERO ───────────── */
+  .hero{
+    position:relative;
+    padding: 80px 0 120px;
+    overflow:hidden;
+    background:
+      radial-gradient(1400px 900px at 80% 30%, rgba(214,188,144,0.10), transparent 60%),
+      linear-gradient(180deg, #0B0D11 0%, var(--bg-warm) 100%);
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(214,188,144,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(214,188,144,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at 50% 60%, black 30%, transparent 75%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 60px;
+    align-items: stretch;
+    min-height: 720px;
+  }
+  .hero-left{ display:flex; flex-direction:column; justify-content:space-between; gap: 40px; padding-top: 24px; }
+  .hero-eyebrow{
+    display:flex; align-items:center; gap: 14px;
+  }
+  .hero-eyebrow .bar{ width: 36px; height: 1px; background: var(--hair-strong); }
+  .hero-name{
+    font-size: clamp(64px, 11vw, 168px);
+    color: var(--text);
+  }
+  .hero-name em{ font-style:normal; color: var(--accent); display:block; }
+  .hero-role{
+    font-family:'Manrope',sans-serif; font-weight:300;
+    font-size: 24px; line-height: 1.35;
+    color: var(--text); max-width: 560px;
+  }
+  .hero-role .em{ color: var(--accent); font-weight: 500; }
+  .hero-meta{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    padding-top: 32px; border-top: 1px solid var(--hair);
+  }
+  .hm-k .l{
+    font-family:'JetBrains Mono',monospace;
+    font-size: 10px; letter-spacing: 0.22em; text-transform:uppercase;
+    color: var(--text-dim); margin-bottom: 8px;
+  }
+  .hm-k .v{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: 28px; color: var(--text); line-height: 1;
+  }
+  .hm-k .v.accent{ color: var(--accent); }
+  .hero-cta{ display:flex; gap: 12px; }
+  .btn{
+    display:inline-flex; align-items:center; gap: 12px;
+    padding: 16px 22px;
+    font-family:'JetBrains Mono',monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform:uppercase;
+    border: 1px solid var(--hair-strong);
+    color: var(--text);
+    background: transparent;
+    transition: all .2s;
+  }
+  .btn .arr{ font-size: 16px; }
+  .btn:hover{ background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .btn.primary{ background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .btn.primary:hover{ background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  /* Globe stage */
+  .hero-right{
+    position: relative;
+    border: 1px solid var(--hair);
+    background:
+      radial-gradient(600px 600px at 50% 50%, rgba(214,188,144,0.06), transparent 70%),
+      linear-gradient(180deg, rgba(20,19,15,0.6) 0%, rgba(11,13,17,0.95) 100%);
+    overflow:hidden;
+    min-height: 720px;
+  }
+  .hero-right::before{
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 50% 50%, transparent 200px, rgba(11,13,17,0.4) 280px, rgba(11,13,17,0.85) 380px);
+    pointer-events:none; z-index: 2;
+  }
+  #globe-canvas{
+    position:absolute; inset:0; width:100%; height:100%;
+    z-index: 1;
+  }
+  .globe-corner{
+    position: absolute; padding: 18px;
+    font-family:'JetBrains Mono',monospace;
+    font-size: 10px; letter-spacing: 0.22em; text-transform:uppercase;
+    color: var(--text-faint);
+    z-index: 3;
+  }
+  .globe-corner.tl{ top: 0; left: 0; }
+  .globe-corner.tr{ top: 0; right: 0; color: var(--accent); }
+  .globe-corner.bl{ bottom: 0; left: 0; }
+  .globe-corner.br{ bottom: 0; right: 0; }
+  .globe-corner .accent{ color: var(--accent); }
+  .globe-overlay{
+    position: absolute; left: 24px; right: 24px; bottom: 56px;
+    z-index: 3; display:flex; flex-direction:column; gap: 6px;
+  }
+  .globe-overlay .h{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: 28px; color: var(--text); letter-spacing:-0.005em;
+  }
+  .globe-overlay .h em{ font-style:normal; color: var(--accent); }
+  .globe-overlay .d{
+    font-size: 13px; color: var(--text-dim); max-width: 380px; line-height:1.5;
+  }
+
+  /* corner crosshairs */
+  .corners > i{
+    position:absolute; width:18px; height:18px;
+    border: 1px solid var(--hair-strong);
+    z-index: 3; pointer-events:none;
+  }
+  .corners .tl{ top: 14px; left: 14px; border-right:none; border-bottom:none; }
+  .corners .tr{ top: 14px; right: 14px; border-left:none; border-bottom:none; }
+  .corners .bl{ bottom: 14px; left: 14px; border-right:none; border-top:none; }
+  .corners .br{ bottom: 14px; right: 14px; border-left:none; border-top:none; }
+
+  /* ───────────── LOGOS STRIP ───────────── */
+  .logos{
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    background: var(--bg-deep);
+    padding: 28px 0;
+  }
+  .logos-inner{
+    display:flex; align-items:center; gap: 56px; flex-wrap:wrap;
+    justify-content: space-between;
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.16em; font-size: 15px;
+  }
+  .logos-label{
+    color: var(--accent);
+    font-family:'JetBrains Mono',monospace; font-weight:500;
+    font-size: 11px; letter-spacing: 0.22em;
+  }
+  .logos .l{ display:flex; align-items:center; gap: 10px; }
+  .logos .l .badge{
+    width: 6px; height: 6px; background: var(--accent); border-radius:50%;
+  }
+
+  /* ───────────── SECTION HEADER ───────────── */
+  .section{ padding: 120px 0; position:relative; }
+  .section.warm{ background: var(--bg-warm); }
+  .section.deep{ background: var(--bg-deep); }
+  .sec-head{ margin-bottom: 56px; }
+  .sec-head .mono{ display:flex; align-items:center; gap:14px; margin-bottom: 20px; }
+  .sec-head .mono .bar{ width: 36px; height: 1px; background: var(--hair-strong); }
+  .sec-head h2{
+    font-family:'Archivo Narrow',sans-serif; font-weight:700;
+    font-size: clamp(40px, 5.5vw, 72px); line-height: 1.02;
+    letter-spacing: -0.012em;
+    text-transform: uppercase;
+    color: var(--text);
+    max-width: 1000px;
+  }
+  .sec-head h2 em{ font-style:normal; color: var(--accent); }
+  .sec-head .sub{
+    margin-top: 18px;
+    font-size: 18px; line-height: 1.55; color: var(--text-dim);
+    max-width: 700px;
+  }
+
+  /* ───────────── CHART ───────────── */
+  .chart-wrap{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items:center;
+  }
+  .chart-side h3{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: 40px; line-height: 1.06;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .chart-side h3 em{ font-style:normal; color: var(--accent); }
+  .chart-side p{
+    font-size: 16px; line-height: 1.6; color: var(--text-dim); margin-bottom: 28px;
+  }
+  .chart-legend{ display:flex; flex-direction:column; gap: 18px; }
+  .leg{
+    display:flex; align-items:flex-start; gap: 16px;
+    padding: 16px 18px;
+    border: 1px solid var(--hair);
+    background: rgba(214,188,144,0.02);
+  }
+  .leg .swatch{
+    width: 28px; height: 28px; flex-shrink: 0;
+    display:flex; align-items:center; justify-content:center;
+    margin-top: 2px;
+  }
+  .leg .swatch svg{ display:block; }
+  .leg .k{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: 18px; color: var(--text); margin-bottom: 4px;
+    text-transform: uppercase; letter-spacing: 0.01em;
+  }
+  .leg .d{
+    font-size: 13px; color: var(--text-dim); line-height: 1.5;
+  }
+  .leg.accent{ border-color: rgba(214,188,144,0.45); background: rgba(214,188,144,0.05); }
+  .leg.accent .k{ color: var(--accent); }
+
+  .chart-box{
+    border: 1px solid var(--hair);
+    background: rgba(11,13,17,0.6);
+    padding: 32px 28px 16px;
+    position: relative;
+  }
+  .chart-box .chart-title{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom: 24px;
+  }
+  .chart-box .chart-title .l{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: 20px; color: var(--text); letter-spacing:0.01em;
+  }
+  .chart-box .chart-title .r{
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 0.22em; color: var(--text-faint); text-transform:uppercase;
+  }
+  svg.chart{ width: 100%; height: auto; display:block; overflow:visible; }
+  .chart-note{
+    margin-top: 14px; font-size: 11px; color: var(--text-faint);
+    font-family:'JetBrains Mono',monospace; letter-spacing: 0.16em; text-transform:uppercase;
+    line-height: 1.5;
+  }
+
+  /* ───────────── SPORTS CONVEYOR ───────────── */
+  .belt{
+    position: relative;
+    margin: 0 -64px;
+    padding: 0;
+  }
+  .belt-viewport{
+    overflow: hidden;
+    position: relative;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, black 60px, black calc(100% - 60px), transparent 100%);
+  }
+  .belt-track{
+    display: flex;
+    gap: 18px;
+    width: max-content;
+    padding: 4px 32px;
+    animation: belt-roll 60s linear infinite;
+    will-change: transform;
+  }
+  .belt.paused .belt-track{ animation-play-state: paused; }
+  @keyframes belt-roll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .sport-card{
+    position: relative;
+    flex: 0 0 auto;
+    width: 320px;
+    aspect-ratio: 3/4;
+    border: 1px solid var(--hair);
+    overflow: hidden;
+    background: var(--surface);
+    transition: border-color .3s, transform .3s;
+  }
+  .sport-card:hover{ border-color: var(--hair-strong); transform: translateY(-4px); }
+  .sport-card img{
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.2) brightness(0.82) contrast(1.05);
+    transition: filter .5s, transform .8s;
+  }
+  .sport-card:hover img{ filter: grayscale(0) brightness(0.95); transform: scale(1.06); }
+  .sport-card::after{
+    content:""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(8,9,12,0.92) 100%);
+    z-index: 1;
+  }
+  .sport-card .body{
+    position: absolute; left: 22px; right: 22px; bottom: 22px;
+    z-index: 2;
+  }
+  .sport-card .tag{
+    display: inline-block;
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+    border: 1px solid var(--hair-strong);
+    padding: 4px 8px; margin-bottom: 12px;
+    background: rgba(8,9,12,0.6);
+  }
+  .sport-card .k{
+    font-family:'Archivo Narrow',sans-serif; font-weight: 600;
+    font-size: 26px; line-height: 1.05; color: var(--text);
+    text-transform: uppercase; letter-spacing: 0.01em;
+  }
+  .sport-card .meta{
+    margin-top: 6px;
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase;
+  }
+  /* Placeholder cards (Basketball, Equestrian) */
+  .sport-card.placeholder{
+    background:
+      radial-gradient(400px 400px at 50% 30%, rgba(214,188,144,0.10), transparent 70%),
+      linear-gradient(180deg, #14130F 0%, #0B0D11 100%);
+  }
+  .sport-card.placeholder .ph-art{
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); opacity: 0.55;
+  }
+  .sport-card.placeholder .ph-art svg{ width: 60%; height: 60%; }
+  .sport-card.placeholder::after{
+    background: linear-gradient(180deg, transparent 40%, rgba(8,9,12,0.95) 100%);
+  }
+  .sport-card.placeholder .ph-stamp{
+    position: absolute; top: 18px; right: 18px;
+    z-index: 2;
+    font-family:'JetBrains Mono',monospace; font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-faint);
+    border: 1px solid var(--hair-soft); padding: 4px 8px;
+  }
+
+  .hero-creds{
+    margin-top: 22px;
+    display: flex; flex-wrap: wrap;
+    align-items: center; gap: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .hero-creds .cr{
+    border: 1px solid var(--hair-strong);
+    padding: 5px 10px 4px;
+    color: var(--accent);
+    background: rgba(214,188,144,0.04);
+  }
+  .hero-creds .cr-sep{ color: var(--text-faint); opacity: 0.6; }
+  @media (max-width: 680px){
+    .hero-creds{ gap: 8px; font-size: 10px; letter-spacing: 0.18em; }
+    .hero-creds .cr{ padding: 4px 8px 3px; }
+    .hero-creds .cr-sep{ display: none; }
+  }
+  .belt-controls{
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 28px; padding: 0 64px;
+    gap: 20px;
+  }
+  .belt-arrows{ display: flex; gap: 10px; }
+  .belt-btn{
+    width: 44px; height: 44px;
+    border: 1px solid var(--hair-strong);
+    background: transparent; color: var(--accent);
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+  }
+  .belt-btn:hover{ background: var(--accent); color: var(--bg); }
+  .belt-note{
+    font-family:'JetBrains Mono',monospace; font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-faint);
+  }
+
+  /* ───────────── CASES (revolving door) ───────────── */
+  .cases-door{
+    display: flex; align-items: center; justify-content: center; gap: 26px;
+  }
+  .cases-stage{
+    position: relative;
+    width: 320px; aspect-ratio: 3/4;
+    perspective: 1600px;
+    perspective-origin: 50% 50%;
+  }
+  .case{
+    position: absolute; inset: 0;
+    border: 1px solid var(--hair);
+    overflow: hidden;
+    background: var(--surface);
+    transform-origin: left center;
+    transform: rotateY(95deg) translateZ(0);
+    opacity: 0;
+    backface-visibility: hidden;
+    transition: transform .95s cubic-bezier(.7,0,.25,1), opacity .55s ease;
+    will-change: transform, opacity;
+  }
+  .case.is-active{
+    transform: rotateY(0deg);
+    opacity: 1;
+    z-index: 3;
+    transition: transform 1s cubic-bezier(.2,.7,.2,1), opacity .35s ease;
+  }
+  .case.is-exit{
+    transform: rotateY(-95deg) translateZ(0);
+    opacity: 0;
+    z-index: 2;
+    transform-origin: right center;
+  }
+  .case img{
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.2) brightness(0.82) contrast(1.05);
+  }
+  .case::after{
+    content:""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(8,9,12,0.92) 100%);
+    z-index: 1;
+  }
+  .case .ix{
+    position: absolute; top: 14px; left: 14px; z-index: 3;
+    font-family:'JetBrains Mono',monospace; font-size: 9.5px;
+    letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase;
+    border: 1px solid var(--hair-strong);
+    background: rgba(8,9,12,0.7);
+    padding: 4px 8px;
+  }
+  .case .body{
+    position: absolute; left: 18px; right: 18px; bottom: 18px;
+    z-index: 2;
+  }
+  .case .sport{
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    color: var(--text-faint); letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .case .h{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: 22px; line-height: 1.1; letter-spacing: 0.01em;
+    text-transform: uppercase; color: var(--text);
+  }
+  .case .h em{ display:block; font-style:normal; color: var(--accent); margin-top: 4px; }
+  .case .stamp{
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px solid rgba(214,188,144,0.35);
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+  }
+  /* door arrows + counter */
+  .door-btn{
+    width: 44px; height: 44px;
+    border: 1px solid var(--hair-strong);
+    background: var(--surface);
+    color: var(--text); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; line-height: 1;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .door-btn:hover{ background: var(--accent); color: #0B0D11; border-color: var(--accent); }
+  .door-meta{
+    display:flex; justify-content: center; gap: 14px; align-items: center;
+    margin-top: 18px;
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 0.22em; color: var(--text-faint); text-transform: uppercase;
+  }
+  .door-dots{ display:flex; gap: 8px; }
+  .door-dot{
+    width: 22px; height: 2px; background: var(--hair-strong);
+    cursor: pointer; border: none; padding: 0;
+    transition: background .25s;
+  }
+  .door-dot.is-active{ background: var(--accent); }
+
+  /* ───────────── SPECS ───────────── */
+  .specs-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+  }
+  .spec{
+    border: 1px solid var(--hair);
+    background: rgba(20,19,15,0.5);
+    padding: 32px 28px;
+    display:flex; flex-direction:column; gap: 16px;
+    position: relative;
+    transition: border-color .25s, background .25s;
+  }
+  .spec:hover{ border-color: var(--hair-strong); background: rgba(20,19,15,0.85); }
+  .spec .ic{
+    width: 44px; height: 44px;
+    border: 1px solid var(--hair-strong);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--accent);
+  }
+  .spec .ic svg{ width: 22px; height: 22px; fill:none; stroke: currentColor; stroke-width: 1.6; stroke-linecap:round; stroke-linejoin: round; }
+  .spec .n{
+    font-family:'JetBrains Mono',monospace; font-size: 11px;
+    letter-spacing: 0.22em; color: var(--accent); text-transform:uppercase;
+  }
+  .spec .h{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: 26px; line-height: 1.1; color: var(--text);
+    text-transform: uppercase; letter-spacing: 0.01em;
+  }
+  .spec .d{
+    font-size: 14px; line-height: 1.6; color: var(--text-dim);
+  }
+
+  /* ───────────── DIFFERENCE / CREDENTIALS ───────────── */
+  .diff-wrap{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  }
+  .diff-left h3{
+    font-family:'Archivo Narrow',sans-serif; font-weight:600;
+    font-size: clamp(36px, 4vw, 56px); line-height: 1.05;
+    letter-spacing: -0.005em;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .diff-left h3 em{ font-style:normal; color: var(--accent); display:block; }
+  .diff-left p{
+    font-size: 17px; line-height: 1.65; color: var(--text-dim);
+    margin-bottom: 32px; max-width: 540px;
+  }
+  .diff-photo{
+    position:relative; aspect-ratio: 16/10;
+    border: 1px solid var(--hair); overflow:hidden;
+  }
+  .diff-photo img{ width:100%; height:100%; object-fit:cover; filter: grayscale(0.2) brightness(0.85); }
+  .diff-photo .cap{
+    position:absolute; left:18px; bottom:18px;
+    font-family:'JetBrains Mono',monospace; font-size: 11px;
+    color: var(--accent); letter-spacing: 0.22em; text-transform:uppercase;
+    background: rgba(8,9,12,0.85); padding: 8px 12px;
+    border: 1px solid var(--hair-strong);
+  }
+  .creds{
+    display:flex; flex-direction:column; gap: 32px;
+  }
+  .creds-col .k{
+    font-family:'JetBrains Mono',monospace; font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .creds-col ul{
+    list-style:none; padding:0; margin:0;
+    display:flex; flex-direction:column; gap: 8px;
+  }
+  .creds-col li{
+    font-family:'Archivo Narrow',sans-serif; font-weight:500;
+    font-size: 22px; line-height: 1.25;
+    color: var(--text);
+    text-transform: uppercase; letter-spacing: 0.01em;
+    padding-bottom: 12px; border-bottom: 1px solid var(--hair-soft);
+  }
+  .creds-col li:last-child{ border-bottom: none; }
+
+  /* ───────────── TIERS ───────────── */
+  .tiers-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+  }
+  .tier{
+    border: 1px solid var(--hair);
+    padding: 36px 30px;
+    display:flex; flex-direction:column; gap: 18px;
+    background: rgba(20,19,15,0.6);
+    position: relative;
+    transition: border-color .25s;
+  }
+  .tier.mid{
+    border-color: var(--hair-strong);
+    background:
+      linear-gradient(180deg, rgba(214,188,144,0.08) 0%, rgba(20,19,15,0.7) 60%),
+      var(--bg-warm);
+  }
+  .tier .badge{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+  }
+  .tier .badge .dot{ width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .tier .name{
+    font-family:'Archivo Narrow',sans-serif; font-weight:700;
+    font-size: 34px; line-height: 1; color: var(--text);
+    text-transform: uppercase; letter-spacing: 0.005em;
+  }
+  .tier .tagline{
+    color: var(--accent);
+    font-family:'Archivo Narrow',sans-serif; font-weight:500;
+    font-size: 18px;
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .tier ul{
+    list-style:none; padding: 0; margin: 8px 0 0;
+    display:flex; flex-direction:column; gap: 10px;
+  }
+  .tier li{
+    font-size: 14px; line-height: 1.5; color: var(--text-dim);
+    padding-left: 18px; position:relative;
+  }
+  .tier li::before{
+    content:""; position:absolute; left: 0; top: 9px;
+    width: 8px; height: 1px; background: var(--accent);
+  }
+  .tier .ideal{
+    margin-top: auto; padding-top: 18px; border-top: 1px solid var(--hair-soft);
+  }
+  .tier .ideal .k{
+    font-family:'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 0.22em; color: var(--accent); text-transform:uppercase;
+    margin-bottom: 6px;
+  }
+  .tier .ideal .d{ font-size: 14px; color: var(--text); line-height: 1.4; }
+
+  /* ───────────── CTA / CONTACT ───────────── */
+  .cta{
+    background:
+      radial-gradient(900px 600px at 20% 100%, rgba(214,188,144,0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-warm) 100%);
+    border-top: 1px solid var(--hair);
+    padding: 140px 0;
+    text-align: center;
+  }
+  .cta-mark{ font-size: 100px; line-height: 1; color: var(--accent); font-family:'Archivo Narrow',sans-serif; margin-bottom: 24px; }
+  .cta h2{
+    font-family:'Archivo Narrow',sans-serif; font-weight:700;
+    font-size: clamp(48px, 7vw, 96px); line-height: 1; letter-spacing:-0.01em;
+    text-transform: uppercase;
+    max-width: 1000px; margin: 0 auto 24px;
+  }
+  .cta h2 em{ font-style:normal; color: var(--accent); display:block; }
+  .cta .lede{
+    font-size: 18px; line-height: 1.6; color: var(--text-dim);
+    max-width: 600px; margin: 0 auto 48px;
+  }
+  .cta-actions{ display:flex; gap: 14px; justify-content:center; flex-wrap:wrap; }
+
+  /* ───────────── FOOTER ───────────── */
+  footer{
+    background: var(--bg-deep);
+    padding: 48px 0 36px;
+    border-top: 1px solid var(--hair);
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center; gap: 24px;
+    font-family:'JetBrains Mono',monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .footer-inner .accent{ color: var(--accent); }
+
+  /* ───────────── RESPONSIVE ───────────── */
+  @media (max-width: 1100px){
+    .wrap, .nav-inner{ padding-left: 32px; padding-right: 32px; }
+    .hero-grid, .chart-wrap, .diff-wrap{ grid-template-columns: 1fr; gap: 40px; }
+    .hero-right{ min-height: 560px; order: -1; }
+    .cases-grid, .specs-grid, .tiers-grid{ grid-template-columns: 1fr; }
+    .hero-meta{ grid-template-columns: repeat(3, 1fr); }
+    .section{ padding: 80px 0; }
+    .hero{ padding: 48px 0 80px; }
+    .belt{ margin: 0 -32px; }
+    .belt-controls{ padding: 0 32px; }
+    .sport-card{ width: 280px; }
+  }
+  @media (max-width: 680px){
+    .wrap, .nav-inner{ padding-left: 20px; padding-right: 20px; }
+    .nav-links{ display:none; }
+    .nav-inner{ padding: 14px 20px; }
+    .hero-meta{ grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+    .hm-k .v{ font-size: 22px; }
+    .hero-right{ min-height: 420px; }
+    .hero-cta{ flex-direction: column; }
+    .hero-cta .btn{ width: 100%; justify-content: center; }
+    .chart-wrap{ gap: 32px; }
+    .chart-box{ padding: 20px 16px 12px; }
+    .belt{ margin: 0 -20px; }
+    .belt-controls{ padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
+    .sport-card{ width: 240px; }
+    .sport-card .k{ font-size: 22px; }
+    .section{ padding: 64px 0; }
+    .cta{ padding: 80px 0; }
+    .cta-mark{ font-size: 72px; }
+    .footer-inner{ flex-direction: column; gap: 12px; text-align: center; }
+    .globe-overlay{ left: 16px; right: 16px; bottom: 44px; }
+    .globe-overlay .h{ font-size: 20px; }
+    .globe-overlay .d{ font-size: 12px; }
+    .globe-corner{ padding: 12px; font-size: 9px; }
+    .diff-wrap{ gap: 48px; }
+    .creds-col li{ font-size: 18px; }
+    /* cases revolving door — fit phone width */
+    .cases-door{ gap: 10px; }
+    .cases-stage{ width: 220px; }
+    .door-btn{ width: 36px; height: 36px; font-size: 16px; }
+    .case .h{ font-size: 18px; }
+    .case .body{ left: 14px; right: 14px; bottom: 14px; }
+    .case .ix{ top: 10px; left: 10px; font-size: 8.5px; }
+    .door-meta{ margin-top: 14px; font-size: 9px; letter-spacing: 0.2em; }
+  }
+
+  /* fade-in for revealed sections */
+  .reveal{ opacity: 0; transform: translateY(20px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in{ opacity: 1; transform: none; }
+
+</style>
+</head>
+<body>
+
+<!-- ───────────── NAV ───────────── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="mark">NED MILLS<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="#track">Work</a>
+      <a href="#chart">Results</a>
+      <a href="#specialisms">Specialisms</a>
+      <a href="#cases">Cases</a>
+      <a href="#engage">Engage</a>
+    </div>
+    <a href="#contact" class="nav-cta">Enquire <span class="arr">→</span></a>
+  </div>
+</nav>
+
+<!-- ───────────── HERO + GLOBE ───────────── -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div>
+          <div class="hero-eyebrow">
+            <span class="bar"></span>
+            <span class="mono accent">Human Performance Clinician &amp; Expert Consultant · Abu Dhabi · UAE</span>
+          </div>
+          <h1 class="hero-name display" style="margin-top: 32px;">
+            NED<em>MILLS.</em>
+          </h1>
+          <div class="hero-creds">
+            <span class="cr">PhD (IP)</span>
+            <span class="cr-sep">·</span>
+            <span class="cr">MSc</span>
+            <span class="cr-sep">·</span>
+            <span class="cr">BSc (Hons)</span>
+            <span class="cr-sep">·</span>
+            <span class="cr">FDSc</span>
+          </div>
+          <p class="hero-role" style="margin-top: 28px;">
+            <span class="em">Almost a decade of elite sport.</span> Clinical rehabilitation and physical performance — under one practitioner. I take athletes through the whole arc and return them better than they were before they got hurt.
+          </p>
+        </div>
+
+        <div>
+          <div class="hero-meta">
+            <div class="hm-k">
+              <div class="l">Elite Sport</div>
+              <div class="v">~10 <span style="font-size:14px; color:var(--text-dim); letter-spacing:0.18em;">YRS</span></div>
+            </div>
+            <div class="hm-k">
+              <div class="l">Domains</div>
+              <div class="v accent">04</div>
+            </div>
+            <div class="hm-k">
+              <div class="l">Reach</div>
+              <div class="v">Global</div>
+            </div>
+          </div>
+          <div class="hero-cta" style="margin-top: 32px;">
+            <a href="#contact" class="btn primary">Book a consult <span class="arr">→</span></a>
+            <a href="#chart" class="btn">See the results <span class="arr">↓</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GLOBE STAGE ── -->
+      <div class="hero-right">
+        <div class="corners"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+        <canvas id="globe-canvas"></canvas>
+        <div class="globe-corner tl">N° 24.4539 · E° 54.3773</div>
+        <div class="globe-corner tr"><span class="accent">● LIVE</span> · ROSTER</div>
+        <div class="globe-corner bl">REACH · 04 CONTINENTS</div>
+        <div class="globe-corner br">2026</div>
+        <div class="globe-overlay">
+          <div class="h">Location shouldn't be a barrier <em>to resource.</em></div>
+          <div class="d">In-clinic, on the pitch, in-camp, or remote. Embedded with athletes wherever they are in the world.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── LOGOS ───────────── -->
+<div class="logos">
+  <div class="wrap">
+    <div class="logos-inner">
+      <span class="logos-label">Embedded across —</span>
+      <span class="l"><span class="badge"></span>Premiership Rugby</span>
+      <span class="l"><span class="badge"></span>ProLeague Football</span>
+      <span class="l"><span class="badge"></span>Olympic Athletes</span>
+      <span class="l"><span class="badge"></span>CrossFit Games</span>
+      <span class="l"><span class="badge"></span>University of Liverpool</span>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────── THE GRAPH ───────────── -->
+<section class="section" id="chart">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="mono"><span class="bar"></span><span class="accent">The Difference / 01</span></div>
+      <h2>Return them <em>faster.</em><br>Return them <em>stronger.</em></h2>
+      <p class="sub">When clinical rehabilitation and physical performance sit under one practitioner — instead of three teams handing off — athletes come back earlier and they stay back. No translation losses.</p>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-side reveal">
+        <h3>Return-to-play, <em>side by side.</em></h3>
+        <p>Two trajectories from the same starting point. The benchmark line follows typical published return-to-play rates for soft-tissue and ligamentous injuries. The accent line is the trajectory we target — under direct, end-to-end specialist management.</p>
+        <div class="chart-legend">
+          <div class="leg accent">
+            <span class="swatch">
+              <svg width="28" height="14"><line x1="0" y1="7" x2="28" y2="7" stroke="#D6BC90" stroke-width="2.5"/></svg>
+            </span>
+            <div>
+              <div class="k">With Ned's support</div>
+              <div class="d">End-to-end specialist management. One practitioner from day one through first start back, and on into the performance phase.</div>
+            </div>
+          </div>
+          <div class="leg">
+            <span class="swatch">
+              <svg width="28" height="14"><line x1="0" y1="7" x2="28" y2="7" stroke="#6B6759" stroke-width="2" stroke-dasharray="4 4"/></svg>
+            </span>
+            <div>
+              <div class="k">Industry benchmark</div>
+              <div class="d">Typical return curve — fragmented care, handoffs between clinical, rehab, and S&amp;C teams. Slower return, higher recurrence.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-box reveal">
+        <div class="chart-title">
+          <div class="l">Return-to-play, % of full capacity</div>
+          <div class="r">Wk 0 → 30</div>
+        </div>
+        <svg class="chart" viewBox="0 0 600 380" preserveAspectRatio="none">
+          <!-- grid -->
+          <g stroke="rgba(214,188,144,0.08)" stroke-width="1">
+            <line x1="40" y1="40" x2="40" y2="320"/>
+            <line x1="40" y1="320" x2="580" y2="320"/>
+            <line x1="40" y1="40" x2="580" y2="40"/>
+            <line x1="40" y1="110" x2="580" y2="110"/>
+            <line x1="40" y1="180" x2="580" y2="180"/>
+            <line x1="40" y1="250" x2="580" y2="250"/>
+          </g>
+          <!-- y labels -->
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="#6B6759" letter-spacing="0.1em">
+            <text x="30" y="44" text-anchor="end">100%</text>
+            <text x="30" y="114" text-anchor="end">75%</text>
+            <text x="30" y="184" text-anchor="end">50%</text>
+            <text x="30" y="254" text-anchor="end">25%</text>
+            <text x="30" y="324" text-anchor="end">0%</text>
+          </g>
+          <!-- x labels -->
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="#6B6759" letter-spacing="0.1em">
+            <text x="40"  y="340" text-anchor="middle">W0</text>
+            <text x="130" y="340" text-anchor="middle">W5</text>
+            <text x="220" y="340" text-anchor="middle">W10</text>
+            <text x="310" y="340" text-anchor="middle">W15</text>
+            <text x="400" y="340" text-anchor="middle">W20</text>
+            <text x="490" y="340" text-anchor="middle">W25</text>
+            <text x="580" y="340" text-anchor="middle">W30</text>
+          </g>
+
+          <!-- area under accent curve -->
+          <defs>
+            <linearGradient id="g-accent" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%"  stop-color="#D6BC90" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#D6BC90" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- accent line (pre-injury → injury dip → strong recovery, exceeds baseline) -->
+          <path id="accent-area"
+                d="M40,58 L92,58 C100,58 106,150 110,260 C112,280 114,290 120,290 C 220,255 320,165 410,95 C 490,55 540,45 580,42 L 580,320 L 40,320 Z"
+                fill="url(#g-accent)"/>
+          <path id="accent-line"
+                d="M40,58 L92,58 C100,58 106,150 110,260 C112,280 114,290 120,290 C 220,255 320,165 410,95 C 490,55 540,45 580,42"
+                fill="none" stroke="#D6BC90" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                stroke-dasharray="1300" stroke-dashoffset="1300"/>
+
+          <!-- benchmark line (pre-injury → injury dip → slow incomplete recovery) -->
+          <path id="bench-line"
+                d="M40,58 L92,58 C100,58 106,150 110,260 C112,280 114,290 120,290 C 220,292 300,275 380,240 C 470,202 530,168 580,152"
+                fill="none" stroke="#8A8474" stroke-width="2.2" stroke-dasharray="6 6"
+                stroke-linecap="round"/>
+
+          <!-- injury event marker -->
+          <g>
+            <line x1="120" y1="297" x2="120" y2="326" stroke="rgba(200,90,90,0.45)" stroke-dasharray="2 3"/>
+            <circle cx="120" cy="290" r="6" fill="#C85A5A"/>
+            <circle cx="120" cy="290" r="11" fill="none" stroke="#C85A5A" stroke-width="1" opacity="0.5"/>
+            <rect x="86" y="244" width="96" height="30" fill="#0E1014" stroke="rgba(200,90,90,0.55)"/>
+            <text x="134" y="258" text-anchor="middle"
+                  font-family="JetBrains Mono, monospace" font-size="8.5"
+                  fill="#C85A5A" letter-spacing="0.18em">INJURY EVENT</text>
+            <text x="134" y="269" text-anchor="middle"
+                  font-family="Archivo Narrow, sans-serif" font-weight="600" font-size="10"
+                  fill="#F3EFE6" letter-spacing="0.04em">SAME START</text>
+          </g>
+
+          <!-- end-point markers -->
+          <circle cx="580" cy="42" r="6" fill="#D6BC90"/>
+          <circle cx="580" cy="42" r="11" fill="none" stroke="#D6BC90" stroke-width="1" opacity="0.35"/>
+          <circle cx="580" cy="152" r="4" fill="#8A8474"/>
+
+          <!-- labels on lines -->
+          <g font-family="Archivo Narrow, sans-serif" font-size="11" letter-spacing="0.04em">
+            <text x="455" y="36" fill="#D6BC90" font-weight="600">WITH SUPPORT</text>
+            <text x="435" y="176" fill="#A9A498">WITHOUT SUPPORT</text>
+          </g>
+        </svg>
+        <div class="chart-note">Illustrative · Based on published return-to-play research and case experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── TRACK RECORD ───────────── -->
+<section class="section warm" id="track">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="mono"><span class="bar"></span><span class="accent">Track Record / 02</span></div>
+      <h2>Sports I have <em>worked with.</em></h2>
+      <p class="sub">Embedded across high-performance domains around the world — same standards, different sports. Federation-level, professional, and national programmes across Europe and the Gulf.</p>
+    </div>
+    <div class="belt" id="sports-belt">
+      <div class="belt-viewport">
+        <div class="belt-track" id="sports-track">
+          <!-- Set A -->
+          <div class="sport-card">
+            <img src="assets/olympic-skate.jpg" alt="Olympic — World Skateboarding Tour" />
+            <div class="body">
+              <span class="tag">Olympic</span>
+              <div class="k">Olympic Athletes</div>
+            </div>
+          </div>
+          <div class="sport-card">
+            <img src="assets/prem15s-medic.jpg" alt="Allianz Premier 15s — matchday medic" />
+            <div class="body">
+              <span class="tag">Rugby</span>
+              <div class="k">Premiership Rugby</div>
+            </div>
+          </div>
+          <div class="sport-card">
+            <img src="assets/mancity-abudhabi.jpg" alt="Manchester City — Abu Dhabi training camp" />
+            <div class="body">
+              <span class="tag">Football</span>
+              <div class="k">Professional Football</div>
+            </div>
+          </div>
+          <div class="sport-card">
+            <img src="assets/crossfit-miami.jpg" alt="CrossFit — Battle Cancer Miami" />
+            <div class="body">
+              <span class="tag">CrossFit</span>
+              <div class="k">CrossFit Games Athletes</div>
+            </div>
+          </div>
+          <div class="sport-card">
+            <img src="assets/basketball-patriots.jpg" alt="Patriots BBL — Basketball" />
+            <div class="body">
+              <span class="tag">Basketball</span>
+              <div class="k">BBL Basketball</div>
+            </div>
+          </div>
+          <div class="sport-card placeholder">
+            <div class="ph-stamp">Photo coming</div>
+            <div class="ph-art">
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 80 Q26 60 38 52 Q50 44 60 36 Q70 28 78 30 L84 24 L82 32 Q74 38 70 46 Q66 56 60 64 Q52 76 36 82 Z"/>
+                <circle cx="68" cy="34" r="2" fill="currentColor"/>
+                <path d="M24 80 L18 86 M40 78 L36 88"/>
+              </svg>
+            </div>
+            <div class="body">
+              <span class="tag">Equestrian</span>
+              <div class="k">National Equestrian</div>
+            </div>
+          </div>
+
+          <!-- Set B (duplicate for seamless loop) -->
+          <div class="sport-card" aria-hidden="true">
+            <img src="assets/olympic-skate.jpg" alt="" />
+            <div class="body"><span class="tag">Olympic</span><div class="k">Olympic Athletes</div></div>
+          </div>
+          <div class="sport-card" aria-hidden="true">
+            <img src="assets/prem15s-medic.jpg" alt="" />
+            <div class="body"><span class="tag">Rugby</span><div class="k">Premiership Rugby</div></div>
+          </div>
+          <div class="sport-card" aria-hidden="true">
+            <img src="assets/mancity-abudhabi.jpg" alt="" />
+            <div class="body"><span class="tag">Football</span><div class="k">Professional Football</div></div>
+          </div>
+          <div class="sport-card" aria-hidden="true">
+            <img src="assets/crossfit-miami.jpg" alt="" />
+            <div class="body"><span class="tag">CrossFit</span><div class="k">CrossFit Games Athletes</div></div>
+          </div>
+          <div class="sport-card" aria-hidden="true">
+            <img src="assets/basketball-patriots.jpg" alt="" />
+            <div class="body"><span class="tag">Basketball</span><div class="k">BBL Basketball</div></div>
+          </div>
+          <div class="sport-card placeholder" aria-hidden="true">
+            <div class="ph-stamp">Photo coming</div>
+            <div class="ph-art">
+              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 80 Q26 60 38 52 Q50 44 60 36 Q70 28 78 30 L84 24 L82 32 Q74 38 70 46 Q66 56 60 64 Q52 76 36 82 Z"/>
+                <circle cx="68" cy="34" r="2" fill="currentColor"/>
+                <path d="M24 80 L18 86 M40 78 L36 88"/>
+              </svg>
+            </div>
+            <div class="body"><span class="tag">Equestrian</span><div class="k">National Equestrian</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="belt-controls">
+        <span class="belt-note">06 Sports · Drag, swipe, or hover to pause</span>
+        <div class="belt-arrows">
+          <button class="belt-btn" id="belt-prev" type="button" aria-label="Previous">←</button>
+          <button class="belt-btn" id="belt-next" type="button" aria-label="Next">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── SPECIALISMS ───────────── -->
+<section class="section" id="specialisms">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="mono"><span class="bar"></span><span class="accent">Specialisms / 03</span></div>
+      <h2>What I'm <em>hired for.</em></h2>
+      <p class="sub">Three lanes — focused, defensible, and field-tested under pressure.</p>
+    </div>
+    <div class="specs-grid">
+      <div class="spec reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M8 4l-4 8 4 8M16 4l4 8-4 8"/><path d="M9 12h6"/></svg></div>
+        <div class="n">01 · Lower Limb</div>
+        <div class="h">Complex lower-limb injuries</div>
+        <div class="d">ACL reconstructions, multi-ligament repairs, post-surgical knees, hamstrings, calves, ankles. End-to-end rehab on the cases other clinicians won't take.</div>
+      </div>
+      <div class="spec reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/></svg></div>
+        <div class="n">02 · Performance</div>
+        <div class="h">Improving human performance</div>
+        <div class="d">Strength, speed, capacity, and resilience. Not just returning athletes to where they were — making them better than they were before they got hurt.</div>
+      </div>
+      <div class="spec reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg></div>
+        <div class="n">03 · Consult</div>
+        <div class="h">Second-opinion consults</div>
+        <div class="d">Independent expert view on the above — diagnosis, surgical decisions, rehab pathways, and performance plans. For athletes, agents, and medical teams who need clarity.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── SELECTED CASES ───────────── -->
+<section class="section warm" id="cases">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="mono"><span class="bar"></span><span class="accent">Selected Cases / 04</span></div>
+      <h2>Returns that <em>mattered.</em></h2>
+      <p class="sub">Athletes taken through the whole arc — injury, rehab, and back into performance.</p>
+    </div>
+    <div class="cases-door reveal">
+      <button class="door-btn" id="cases-prev" aria-label="Previous case">‹</button>
+      <div class="cases-stage" id="cases-stage">
+        <div class="case is-active" data-i="0">
+          <img src="assets/rugby-saracens.jpg" alt="Premiership rugby case" />
+          <div class="ix">Case 01 · Rugby</div>
+          <div class="body">
+            <div class="sport">Back row</div>
+            <div class="h">ACL reconstruction.<em>Back to first XV.</em></div>
+            <div class="stamp">Stronger than baseline</div>
+          </div>
+        </div>
+        <div class="case" data-i="1">
+          <img src="assets/aljazira-red.jpg" alt="Pro League football case" />
+          <div class="ix">Case 02 · Football</div>
+          <div class="body">
+            <div class="sport">Forward</div>
+            <div class="h">Recurrent hamstring.<em>Back to football.</em></div>
+            <div class="stamp">Full season, no recurrence</div>
+          </div>
+        </div>
+        <div class="case" data-i="2">
+          <img src="assets/olympic-skate.jpg" alt="Athletics case" />
+          <div class="ix">Case 03 · Athletics</div>
+          <div class="body">
+            <div class="sport">Track athlete</div>
+            <div class="h">Post-surgical Achilles.<em>Back to competition.</em></div>
+            <div class="stamp">Back to competition pace</div>
+          </div>
+        </div>
+      </div>
+      <button class="door-btn" id="cases-next" aria-label="Next case">›</button>
+    </div>
+    <div class="door-meta">
+      <span id="cases-counter">01 / 03</span>
+      <div class="door-dots" id="cases-dots">
+        <button class="door-dot is-active" data-i="0" aria-label="Case 1"></button>
+        <button class="door-dot" data-i="1" aria-label="Case 2"></button>
+        <button class="door-dot" data-i="2" aria-label="Case 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── THE DIFFERENCE / CREDENTIALS ───────────── -->
+<section class="section" id="difference">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="mono"><span class="bar"></span><span class="accent">The Difference / 05</span></div>
+      <h2>One practitioner. <em>The whole arc.</em></h2>
+    </div>
+    <div class="diff-wrap">
+      <div class="diff-left reveal">
+        <h3>Career-long support, <em>not session-by-session care.</em></h3>
+        <p>Coaches change. Clubs change. Medical staff change. Training environments come and go. Through all of it, I stay — the one consistent presence guiding an athlete from injury, through rehab, and on into the best phase of their career.</p>
+        <div class="diff-photo">
+          <img src="assets/rehab-clinic.jpg" alt="Rehab session" />
+          <div class="cap">In-person · Remote</div>
+        </div>
+      </div>
+      <div class="creds reveal">
+        <div class="creds-col">
+          <div class="k">Academic</div>
+          <ul>
+            <li>PhD · University of Liverpool <span style="color:var(--text-faint); font-size:12px; letter-spacing:0.2em;">— IN PROGRESS</span></li>
+            <li>MSc Sports &amp; Exercise Medicine</li>
+            <li>BSc Hons Sports Therapy</li>
+            <li>FDSc Sports Therapy</li>
+          </ul>
+        </div>
+        <div class="creds-col">
+          <div class="k">Accreditations</div>
+          <ul>
+            <li>BASRaT</li>
+            <li>STA · PHICIS</li>
+            <li>FA Medical</li>
+          </ul>
+        </div>
+        <div class="creds-col">
+          <div class="k">Also</div>
+          <ul>
+            <li>Physio Network reviewer</li>
+            <li>Coach educator · federations &amp; clubs</li>
+            <li>Peer-reviewed research</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── TIERS / ENGAGE ───────────── -->
+<section class="section deep" id="engage">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="mono"><span class="bar"></span><span class="accent">Ways To Engage / 06</span></div>
+      <h2>Three ways to <em>work together.</em></h2>
+      <p class="sub">Defined return. Long-arc support. Independent expert view. Pick the fit — the scope flexes around the case.</p>
+    </div>
+    <div class="tiers-grid">
+      <div class="tier reveal">
+        <div class="badge"><span class="dot"></span>Tier 01</div>
+        <div class="name">Rehab Project</div>
+        <div class="tagline">Rehab the injury.</div>
+        <ul>
+          <li>End-to-end management of one injury</li>
+          <li>From day one through first start back</li>
+          <li>Coordination with existing clinical team</li>
+        </ul>
+        <div class="ideal">
+          <div class="k">Ideal for</div>
+          <div class="d">Athletes who need a defined return.</div>
+        </div>
+      </div>
+      <div class="tier mid reveal">
+        <div class="badge"><span class="dot"></span>Tier 02</div>
+        <div class="name">Athlete Project</div>
+        <div class="tagline">Rehab and beyond.</div>
+        <ul>
+          <li>Full rehab, then ongoing performance support</li>
+          <li>The one constant across coaches and clubs</li>
+          <li>Strength, capacity, resilience over time</li>
+        </ul>
+        <div class="ideal">
+          <div class="k">Ideal for</div>
+          <div class="d">Career-stage athletes building a long arc.</div>
+        </div>
+      </div>
+      <div class="tier reveal">
+        <div class="badge"><span class="dot"></span>Tier 03</div>
+        <div class="name">Consult &amp; Audit</div>
+        <div class="tagline">Independent expert view.</div>
+        <ul>
+          <li>Second-opinion case reviews</li>
+          <li>Department &amp; medical-pathway audits</li>
+          <li>Club, federation, governing-body work</li>
+        </ul>
+        <div class="ideal">
+          <div class="k">Ideal for</div>
+          <div class="d">Teams, federations, governing bodies.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── CONTACT CTA ───────────── -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-mark">"</div>
+    <h2>Quality is not<br>an act. It is<br><em>a habit.</em></h2>
+    <p class="lede">Currently accepting new athlete projects and consult engagements. Based in Abu Dhabi · available in-region and internationally.</p>
+    <div class="cta-actions">
+      <a href="mailto:hello@nedmills.com" class="btn primary">Enquire by email <span class="arr">→</span></a>
+      <a href="#top" class="btn">Back to top <span class="arr">↑</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── FOOTER ───────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="mark">NED MILLS<span style="color:var(--accent)">.</span></span>
+      <span class="accent">Abu Dhabi · UAE</span>
+      <span>Human Performance Clinician &amp; Expert Consultant · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ───────────── THREE.JS GLOBE ───────────── -->
+<script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+<script src="home-globe.js"></script>
+
+<script>
+  // simple reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Sports belt: pause on hover/touch, prev/next nudge
+  (function(){
+    const belt = document.getElementById('sports-belt');
+    const track = document.getElementById('sports-track');
+    if (!belt || !track) return;
+
+    // Drag-to-scroll-like nudge: temporarily slide the track via transform offset
+    let offset = 0;
+    let nudgeTimeout;
+    function nudge(dir){
+      belt.classList.add('paused');
+      const step = (window.innerWidth < 700 ? 240 : 320) + 18;
+      offset -= dir * step;
+      track.style.animation = 'none';
+      track.style.transform = `translateX(${offset}px)`;
+      // After a beat, resume the loop from a synced position
+      clearTimeout(nudgeTimeout);
+      nudgeTimeout = setTimeout(() => {
+        // Re-attach the animation; transform will be overridden by keyframes
+        track.style.transform = '';
+        track.style.animation = '';
+        belt.classList.remove('paused');
+      }, 3500);
+    }
+    document.getElementById('belt-prev')?.addEventListener('click', () => nudge(-1));
+    document.getElementById('belt-next')?.addEventListener('click', () => nudge(1));
+
+    // Pause on hover / touch
+    belt.addEventListener('mouseenter', () => belt.classList.add('paused'));
+    belt.addEventListener('mouseleave', () => { if (!nudgeTimeout) belt.classList.remove('paused'); });
+    belt.addEventListener('touchstart', () => belt.classList.add('paused'), { passive: true });
+  })();
+
+  // animate chart lines when chart enters viewport
+  const chartIO = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        const accent = document.getElementById('accent-line');
+        if (accent){
+          accent.animate(
+            [{ strokeDashoffset: 900 }, { strokeDashoffset: 0 }],
+            { duration: 2200, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
+          );
+        }
+        chartIO.disconnect();
+      }
+    }
+  }, { threshold: 0.3 });
+  const chartEl = document.querySelector('.chart-box');
+  if (chartEl) chartIO.observe(chartEl);
+
+  // Cases: revolving-door carousel
+  (function(){
+    const stage = document.getElementById('cases-stage');
+    if (!stage) return;
+    const cards = Array.from(stage.querySelectorAll('.case'));
+    const dots  = Array.from(document.querySelectorAll('#cases-dots .door-dot'));
+    const counter = document.getElementById('cases-counter');
+    const prevBtn = document.getElementById('cases-prev');
+    const nextBtn = document.getElementById('cases-next');
+    let i = 0;
+    let auto;
+
+    function go(target){
+      target = ((target % cards.length) + cards.length) % cards.length;
+      if (target === i) return;
+      const outgoing = cards[i];
+      const incoming = cards[target];
+      // outgoing swings out left
+      outgoing.classList.remove('is-active');
+      outgoing.classList.add('is-exit');
+      // incoming swings in from right
+      incoming.classList.remove('is-exit');
+      // force reflow so transition runs from initial state
+      void incoming.offsetWidth;
+      incoming.classList.add('is-active');
+      // clear is-exit from outgoing after animation finishes
+      setTimeout(() => outgoing.classList.remove('is-exit'), 1000);
+
+      dots.forEach((d, di) => d.classList.toggle('is-active', di === target));
+      if (counter) counter.textContent = String(target + 1).padStart(2,'0') + ' / ' + String(cards.length).padStart(2,'0');
+      i = target;
+    }
+    function startAuto(){ stopAuto(); auto = setInterval(() => go(i + 1), 5200); }
+    function stopAuto(){ if (auto){ clearInterval(auto); auto = null; } }
+
+    prevBtn?.addEventListener('click', () => { go(i - 1); startAuto(); });
+    nextBtn?.addEventListener('click', () => { go(i + 1); startAuto(); });
+    dots.forEach(d => d.addEventListener('click', () => {
+      go(parseInt(d.dataset.i, 10)); startAuto();
+    }));
+    stage.addEventListener('mouseenter', stopAuto);
+    stage.addEventListener('mouseleave', startAuto);
+
+    // Only auto-rotate once visible
+    const visIO = new IntersectionObserver((entries) => {
+      for (const e of entries){
+        if (e.isIntersecting) startAuto();
+        else stopAuto();
+      }
+    }, { threshold: 0.4 });
+    visIO.observe(stage);
+  })();
+</script>
+
+</body>
+</html>
